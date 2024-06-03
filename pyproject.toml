@@ -1,3 +1,40 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ffn"
+authors = [
+    {name = "Mezbaul Haque"},
+]
+description = "Python implementation of a Feed-Forward Backpropagation neural network using only the standard library."
+keywords = ["python", "neural-network", "feedforward-neural-network", "backpropagation"]
+readme = "README.md"
+requires-python = ">=3.6"
+license = {file = "LICENSE"}
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.6",
+  "Programming Language :: Python :: 3.7",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+]
+dependencies = []
+dynamic = ["version"]
+
+[project.optional-dependencies]
+testing = ["coverage", "pytest"]
+
+[project.urls]
+Homepage = "https://github.com/mezbaul-h/ffn"
+Repository = "https://github.com/mezbaul-h/ffn.git"
+Issues = "https://github.com/mezbaul-h/ffn/issues"
+
 [tool.bandit]
 exclude_dirs = ["venv"]
 skips = ["B101"]
@@ -11,6 +48,27 @@ color = true
 #'''
 line-length = 119
 #target-version = ["py312"]
+
+[tool.coverage.report]
+show_missing = true
+exclude_lines = [
+  "pragma: no cover",
+  "def __repr__",
+  "if self.debug:",
+  "if settings.DEBUG",
+  "raise AssertionError",
+  "raise NotImplementedError",
+  "if 0:",
+  "if __name__ == .__main__.:",
+]
+
+[tool.coverage.run]
+branch = true
+omit = [
+  "*/test/*",
+  "settings.py",
+]
+source = ["ffn"]
 
 [tool.isort]
 color_output = true
@@ -28,24 +86,5 @@ ignore_missing_imports = true
 addopts = "-ra --verbose"
 testpaths = ["test"]
 
-[tool.coverage.run]
-branch = true
-omit = [
-  "*/tests/*",
-  "locustfile.py",
-  "manage.py",
-]
-#source = ["package_name"]
-
-[tool.coverage.report]
-show_missing = true
-exclude_lines = [
-  "pragma: no cover",
-  "def __repr__",
-  "if self.debug:",
-  "if settings.DEBUG",
-  "raise AssertionError",
-  "raise NotImplementedError",
-  "if 0:",
-  "if __name__ == .__main__.:",
-]
+[tool.setuptools.dynamic]
+version = {attr = "ffn.__version__"}
